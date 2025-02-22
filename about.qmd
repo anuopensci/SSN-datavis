@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+This competition is organised by Professor [Alice Richardson](https://researchportalplus.anu.edu.au/en/persons/alice-richardson), the lead of Statistical Support Network at the Australian National University.

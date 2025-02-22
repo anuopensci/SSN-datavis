@@ -1,0 +1,26 @@
+---
+title: "Data Visualisation Competition"
+date: today
+subtitle: "By ANU Statistical Support Network"
+listing:
+  - id: c2024
+    contents: "competition/2024/"
+    type: default
+    categories: false
+---
+
+
+## 2024 Competition
+
+{{< fa solid gavel >}} The judges for the competition were:
+
+- Professor [Michael Martin](https://researchportalplus.anu.edu.au/en/persons/michael-martin), 
+- Professor [Mitchell Whitelaw](https://researchportalplus.anu.edu.au/en/persons/mitchell-whitelaw) and 
+- Dr [Luca Maestrini](https://researchportalplus.anu.edu.au/en/persons/luca-maestrini).
+
+🏆 **Winner**: [Alice Kennard](competition/2024/alice-kennard/) received a $50 voucher
+
+::: {#c2024}
+
+
+:::

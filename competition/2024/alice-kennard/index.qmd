@@ -1,0 +1,43 @@
+---
+title: Entry by Alice Kennard
+subtitle: Longitudinal frailty assessment and survival outcomes in patients with advanced chronic kidney disease
+author:
+  - name: Dr Alice L Kennard
+    affiliations: 
+    - College of Health and Medicine, Australian National University, Australia
+    - Department of Renal Medicine, Canberra Health Services, Australia
+  - name: Associate Professor Alice M Richardson
+    affiliations: 
+    - Statistical Support Network, Australian National University, Australia
+  - name: Dr Suzanne E Rainsford
+    affiliations: College of Health and Medicine, Australian National University, Australia
+  - name: Kelly L Hamilton
+    affiliations: Department of Renal Medicine, Canberra Health Services, Australia
+  - name: Professor Nicholas J Glasgow
+    affiliations: College of Health and Medicine, Australian National University, Australia
+  - name: Professor Kate L Pumpa
+    affiliations: 
+    - School of Public Health, Physiotherapy and Sports Science, University College Dublin, Ireland
+    - Discipline of Sport and Exercise Science, Faculty of Health, University of Canberra, Australia
+  - name: Angela M Douglas
+    affiliations: Discipline of Sport and Exercise Science, Faculty of Health, University of Canberra, Australia
+  - name: Associated Professor Girish S Talaulikar
+    affiliations: 
+    - College of Health and Medicine, Australian National University, Australia
+    - Department of Renal Medicine, Canberra Health Services, Australia
+date: "2024-11-25"
+image: figure.png
+knitr: true
+categories: 
+ - "2024"
+---
+
+![Sankey diagram. LTFU: Lost to follow-up. No data: participant did not return for repeat frailty assessment but vital status known.](`r rmarkdown::metadata$image`)
+
+This graphic describes a prospective cohort study examining the prevalence of Fried frailty phenotype, transitions in frailty status over longitudinal assessment and the impact on survival and kidney transplant outcomes among ambulatory outpatients with chronic kidney disease (CKD) and undergoing haemodialysis (HD). 
+
+Participants with advanced CKD (eGFR <20ml/min) or on maintenance HD were assessment for frailty as baseline, 6- and 12 months of follow-up. Participants provided informed opt-out consent. Exclusion criteria included prevalent or incident dementia. Primary outcomes were all-cause mortality and kidney transplantation events. 
+
+Frailty was identified in 36.3% of the 256 study participants, while an additional 46.5% demonstrated prefrailty. Frailty was highly static with improvements in frailty status noted as frequently as frailty progression. Multivariable analysis based on Cox Proportional Hazards modelling demonstrated that frailty outperformed age, comorbidity, disability and laboratory parameters in predicting mortality risk with hazard ratio (HR) 2.83 (95% CI 1.44-5.56, p<0.001). Frailty also substantially reduced access to kidney transplantation HR 0.14 (95% CI 0.03-0.64, P = 0.01). Study strengths include a high degree of data completeness within a study population that has traditionally proven challenging for research activity. Frailty assessment was acceptable to patients when combined with pragmatic research principles that aligned research activity into standard clinical care. This approach offers opportunities to capture real-world data with a high degree of external validity. 
+
+This study demonstrates that frailty assessment is a novel prognostic tool.  These data strongly support the incorporation of objective measures of frailty into routine clinical practice. While currently neglected by nephrology clinical and research agendas, frailty assessment offers opportunity for improved prognostication and individualised care. This study is also unique for its description of frailty dynamics over longitudinal follow-up and reports both progression of frailty and improvement in frailty, accompanied by change in mortality risk. Effective frailty interventions are a research priority. 

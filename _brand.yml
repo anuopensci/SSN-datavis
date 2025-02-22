@@ -1,0 +1,15 @@
+color:
+  palette:
+    gold2: "#F5EDDE"
+    gold: "#BE830E"
+  background: white
+  foreground: black
+  primary: gold
+  
+logo:
+  #small: /images/ANU_Crest_Outline_Black.png
+  medium: /images/ANU_Crest_Outline_Black.png
+  
+typography:
+  headings:
+    color: gold
