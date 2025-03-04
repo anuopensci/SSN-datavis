@@ -2,6 +2,7 @@
 title: "Data Visualisation Competition"
 date: today
 subtitle: "By ANU Statistical Support Network"
+knitr: true
 listing:
   - id: c2024
     contents: "competition/2024/"
@@ -19,6 +20,28 @@ listing:
 - Dr [Luca Maestrini](https://researchportalplus.anu.edu.au/en/persons/luca-maestrini).
 
 🏆 **Winner**: [Alice Kennard](competition/2024/alice-kennard/) received a $50 voucher
+
+```{css, echo = FALSE}
+.lightbox {
+  margin: 5px;
+}
+```
+
+
+::: {layout-ncol=2}
+
+
+
+![Alice Kennard with Professor Alice Richardson](/images/2024/IMG_5662_nice.jpg){.lightbox group="c2024"} 
+
+![Bonnie Martin-Stuart with Professor Alice Richardson](/images/2024/IMG_3050.JPG){.lightbox group="c2024"}
+
+![Bonnie Martin-Stuart](/images/2024/IMG_3052.JPG){.lightbox group="c2024"}
+
+![Alice Kennard](/images/2024/IMG_5675_nice.jpg){.lightbox group="c2024"}
+:::
+
+---
 
 ::: {#c2024}
 
