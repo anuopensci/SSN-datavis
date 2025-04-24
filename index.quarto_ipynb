@@ -1,0 +1,69 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Data Visualisation Competition\"\n",
+        "date: today\n",
+        "subtitle: \"By ANU Statistical Support Network\"\n",
+        "listing:\n",
+        "  - id: c2024\n",
+        "    contents: \"competition/2024/\"\n",
+        "    type: default\n",
+        "    categories: false\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "## 2024 Competition\n",
+        "\n",
+        "{{< fa solid gavel >}} The judges for the competition were:\n",
+        "\n",
+        "- Professor [Michael Martin](https://researchportalplus.anu.edu.au/en/persons/michael-martin), \n",
+        "- Professor [Mitchell Whitelaw](https://researchportalplus.anu.edu.au/en/persons/mitchell-whitelaw) and \n",
+        "- Dr [Luca Maestrini](https://researchportalplus.anu.edu.au/en/persons/luca-maestrini).\n",
+        "\n",
+        "🏆 **Winner**: [Alice Kennard](competition/2024/alice-kennard/) received a $50 voucher\n",
+        "\n",
+        "::: {layout-ncol=2}\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "```{css, echo = FALSE}\n",
+        ".lightbox {\n",
+        "  margin: 0 auto;\n",
+        "}\n",
+        "```\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "![Alice Kennard with Professor Alice Richardson](/images/2024/IMG_5662_nice.jpg){.lightbox group=\"c2024\"} ![Alice Kennard with Professor Alice Richardson](/images/2024/IMG_3050.JPG){.lightbox group=\"c2024\"}\n",
+        ":::\n",
+        "\n",
+        "---\n",
+        "\n",
+        "::: {#c2024}\n",
+        "\n",
+        "\n",
+        ":::"
+      ],
+      "id": "866ce278"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

@@ -10,6 +10,14 @@ listing:
     categories: false
 ---
 
+## 2025 Competition 
+
+
+### <i class="fas fa-bullhorn"></i> Call for submissions
+
+The 2025 competition is open to all ANU student researchers (Honours, Masters or PhD). Entrants should submit their graphic and no more than 300 words describing the context of the graph and the information that it conveys. If the graphic was produced in R, please submit the R code as well. Closing date in 2025 is **Friday 31 October**. For any queries or to make a submission, email [ssn@anu.edu.au](mailto:ssn@anu.edu.au).
+
+
 
 ## 2024 Competition
 
