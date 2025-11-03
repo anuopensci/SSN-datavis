@@ -1,0 +1,20 @@
+---
+title: Entry by Zac Doan
+date: "2025-11-03"
+author: Zac Doan
+image: Epicurve and rainfall.png
+knitr: true
+categories: 
+ - "2025"
+---
+
+![](`r rmarkdown::metadata$image`)
+
+Melioidosis, a lethal disease caused by the soil-based bacterium, _Burkholderia pseu-domallei_, is endemic in northeastern Queensland. Case reporting typically increases during the wet season, from November to April, which brings heavy rainfall to the region.
+
+In 2025, Queensland experienced a sudden threefold increase in melioidosis cases, ex-ceeding expectations for this jurisdiction during the same year-to-date period. Nearly 90% of cases originated from two Hospital and Health Service (HHS) regions: Cairns and Townsville. Because the source of infection for most cases was unknown, monitoring the temporal pattern of disease incidence alongside environmental data, such as rain-fall, provided a basis for generating hypotheses about the probable cause of the surge.
+
+The graph reveals two clear messages: the 2025 melioidosis case surge exceeded the 2020–2024 mean value, and this event associated with heavy rainfall. The epidemic curve itself demonstrated a sharp increase in illness, specifically showing two distinct peaks in cases during the outbreak period from late January to late April. When plotting this disease activity against the average daily rainfall, the data confirmed a positive correla-tion (Pearson; r = 0.45; 95% CI: 0.28-0.59) during the outbreak period.
+
+This correlation supports the theory that heavy rainfall and stormy weather events re-lease the bacteria from the soil. When heavy rain loosens the earth and raises the water table, these bacteria reach the surface. Strong wind might then aerosolize and dissemi-nate the bacteria, resulting in an increased infection. This visual evidence directly sup-ported public health advice urging vulnerable people, such as older adults or those with comorbidities, to shelter during heavy rain, to use personal protective equipment and to avoid contact with mud and floodwaters to reduce the risk of contracting the disease.
+

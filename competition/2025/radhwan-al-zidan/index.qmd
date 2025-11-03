@@ -1,0 +1,19 @@
+---
+title: Toxigenic Bacillus species induce a distinct cytokine release signature in macrophages, revealing inflammasome activation
+date: "2025-11-03"
+author: Radhwan Al Zidan
+image: RadhwanAlZidan_Figure.png
+knitr: true
+categories: 
+ - "2025"
+---
+
+![](`r rmarkdown::metadata$image`)
+
+This heatmap visualises the cytokine landscape induced by 14 _Bacillus_ species, uncovering a distinct inflammasome activation signature associated with bacterial toxicity. Each row represents a _Bacillus_ species, and each column corresponds to one of 32 cytokines released by wild-type bone marrow–derived macrophages following 3 hours of stimulation. Cytokine values were normalised to the mean of each cytokine across all species, allowing for direct comparison of relative induction patterns independent of baseline variability.
+
+A prominent red cluster emerges for toxigenic species such as _B. cereus_, _B. idriensis_, _B. mycoides_, _B. pseudomycoides_ and _B. thuringiensis_, reflecting robust induction of canonical inflammasome-associated cytokines such as the IL-1β cytokine. In contrast, non-toxigenic strains such as _B. subtilis_ and _B. megaterium_ form a muted grey cluster, indicating a limited inflammatory response. Hierarchical organization of the data reveals a clear separation between inflammatory and low-response phenotypes without the need for manual grouping, highlighting the discriminatory power of the pattern itself.
+
+This visualization encapsulates a fundamental principle of host–pathogen interaction: toxin-mediated inflammasome activation imprints a distinctive cytokine signature that separates pathogenic from environmental _Bacillus_ strains. The use of a single colour gradient focuses attention on biologically meaningful contrasts while maintaining interpretability for non-specialists. By condensing high-dimensional multiplex data into a structured, visually intuitive format, the heatmap transforms a complex dataset into a clear mechanistic narrative.
+
+Beyond its immunological insight, this figure demonstrates how deliberate visualization design can reveal pathogen-specific inflammatory fingerprints at a glance, bridging experimental data with conceptual understanding. It underscores how data visualization is not merely descriptive but an analytical tool in itself.

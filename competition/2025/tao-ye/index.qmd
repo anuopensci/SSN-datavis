@@ -1,0 +1,18 @@
+---
+title: Entry by Tao Ye
+date: "2025-11-03"
+author: Tao Ye
+image: submodern_d18O_SST_vs_time.png
+knitr: true
+categories: 
+ - "2025"
+---
+
+![](`r rmarkdown::metadata$image`)
+
+The attached graphic validates an Empirical Calibration Equation (SST = -2.720 × δ¹⁸O_shell-sw + 25.65) using Tridacna maxima shells from Aitutaki Island, analyzed for my PhD at RSES, ANU, under Dr. Stewart Fallon. The figure includes time-series and correlation scatterplots for two modern shells (ATT13M02 in red, ATT13M03 in blue, rows 1-2) and three submodern shells (ATT13011 in green, ATT13116 in orange, ATT13136 in brown, rows 3-5), with a combined Predicted SST plot against OISST (1980–2015).
+
+The aim is to validate the equation, derived from ATT13M02 and ATT13M03 using δ¹⁸O_shell_minus_seawater, by applying it to submodern shells from the same site to assess its robustness. Time-series plots show δ¹⁸O_shell_minus_seawater (per mil) on the left y-axis and SST (°C) on the right, with Observed SST from the OISST v2 dataset (monthly resolution, black solid line) and Predicted SST (colored dashed lines) calculated using the equation. Integer years mark the x-axis. Scatterplots on the right compare Observed SST (OISST v2) and Predicted SST, with Pearson correlations (e.g., r = 0.763 for ATT13M02).
+
+The bottom plot aims to compare Predicted SSTs from all shells against OISST v2 Observed SST (1980–2015), highlighting temporal consistency and model reliability. High-resolution (300 ppi) plots, saved without grids and with labeled subplots, use DejaVu font for δ¹⁸O symbols and were generated with Python. This work supports paleoclimate reconstruction, providing insights into SST variations and their implications for South Pacific coral reef ecosystems.
+Conclusion: High r (0.74–0.87) shows strong variability match, better in submodern shells due to clearer signals.

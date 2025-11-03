@@ -1,0 +1,21 @@
+---
+title: Entries by Olivia Young
+date: "2025-11-03"
+author: Olivia Young
+image: OY_datavis_20251003.png
+knitr: true
+categories: 
+ - "2025"
+---
+
+![](`r rmarkdown::metadata$image`)
+
+Microbiome-derived heritability for a particular microbiome function can be calculated through the covariance between donor and recipient microbiomes. Here, microbiome function is measured as Black Soldier Fly Larvae (BSFL) mass. 
+
+BSFL were inoculated with an Endogenous (i.e. native) microbiome or a Perturbed Endogenous microbiome with additional external microbes. 100 replicates of each treatment were inoculated for Generation 1 and the total larvae mass measured after three weeks. The resulting microbiome from Generation 1 was inoculated into Generation 2, following the donor-recipient design. The slope of a linear model, r2 and the slope’s significance is annotated for each treatment. Perfect microbiome-derived heritability (slope = 1) is depicted by a red dashed line. 
+
+The Endogenous microbiome exhibits a significant slope of 0.37 and r2 is 0.12. A significant microbiome-derived heritability is essential for microbiome selection, where the best performing microbiomes are selectively propagated across generations to ‘breed’ a functional microbiome. The significant microbiome-derived heritability suggests that microbiome selection may be possible, but the low r2 indicates there is likely to be large variability in the recipient generation. The Perturbed Endogenous microbiome shows a non-significant slope, suggesting it would not be amenable to microbiome selection. The red line provides a useful comparison of theoretical maximum microbiome-derived heritability.  
+
+Furthermore, the rug plots make visualisation of the mean and variance easier. Significantly greater mean mass of the Perturbed Endogenous treatment suggests that external microbes can have beneficial effects. This mean increase is consistent across generations, indicating it is heritable at a treatment level, but not at a replicate level, given the lack of a significant slope. The Perturbed Endogenous treatment also had greater variance than the Endogenous treatment, external microbes may result in more variability in BSFL mass outcomes.  
+
+This figure depicts data collected during my Honours degree. 

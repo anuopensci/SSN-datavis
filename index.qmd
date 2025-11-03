@@ -4,20 +4,31 @@ date: today
 subtitle: "By ANU Statistical Support Network"
 knitr: true
 listing:
+  - id: c2025
+    contents: "competition/2025/"
+    type: grid
+    grid-columns: 2
+    categories: false
   - id: c2024
     contents: "competition/2024/"
-    type: default
+    type: grid
+    grid-columns: 2
     categories: false
 ---
 
 ## 2025 Competition 
 
 
-### <i class="fas fa-bullhorn"></i> Call for submissions
+{{< fa solid gavel >}} The judges for the competition were:
 
-The 2025 competition is open to all ANU student researchers (Honours, Masters or PhD). Entrants should submit their graphic and no more than 300 words describing the context of the graph and the information that it conveys. If the graphic was produced in R, please submit the R code as well. Entry is limited to one submission per person. Closing date in 2025 is **Friday 31 October**. For any queries or to make a submission, email [ssn@anu.edu.au](mailto:ssn@anu.edu.au).
+- Dr [Priya Dev](https://researchportalplus.anu.edu.au/en/persons/priya-dev/), 
+- Professor [Mitchell Whitelaw](https://researchportalplus.anu.edu.au/en/persons/mitchell-whitelaw) and 
+- Dr [Luca Maestrini](https://researchportalplus.anu.edu.au/en/persons/luca-maestrini).
 
 
+::: {#c2025}
+
+:::
 
 ## 2024 Competition
 

@@ -1,0 +1,353 @@
+{\rtf1\ansi\ansicpg936\cocoartf2821
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import pandas as pd\
+import numpy as np\
+import matplotlib.pyplot as plt\
+import matplotlib.font_manager as fm\
+import os\
+from datetime import datetime\
+import matplotlib.dates as mdates\
+from scipy.stats import pearsonr\
+from scipy.stats import linregress\
+\
+# Set up DejaVu font for isotope symbols\
+font_candidates = ['DejaVu Sans', 'Arial Unicode MS', 'Segoe UI Symbol', 'Arial', 'sans-serif']\
+for font in font_candidates:\
+    if font in fm.findSystemFonts(fontpaths=None, fontext='ttf'):\
+        plt.rcParams['font.family'] = font\
+        break\
+    if len([f for f in fm.fontManager.ttflist if font.lower() in f.name.lower()]) > 0:\
+        plt.rcParams['font.family'] = font\
+        break\
+\
+def load_data_file(file_path, sample_name):\
+    """Load data file and ensure no NaN or inf values"""\
+    print(f"Loading data for \{sample_name\} from: \{file_path\}")\
+    \
+    if 'OISST' in sample_name:\
+        # Load OISST data from Excel\
+        df = pd.read_excel(file_path)\
+        print(f"Loaded OISST data with shape: \{df.shape\}")\
+        print(f"Columns: \{df.columns.tolist()\}")\
+        \
+        # Preserve date information\
+        if 'Decimal_Date' in df.columns:\
+            df['Time'] = df['Decimal_Date']\
+        elif 'Date' in df.columns:\
+            df['Time'] = pd.to_datetime(df['Date'])\
+        else:\
+            raise ValueError(f"No date column found in \{sample_name\}")\
+    \
+    elif '13M02' in sample_name or '13M03' in sample_name:\
+        # Load 13M02/03 data from CSV - use d18O_shell_minus_seawater\
+        df = pd.read_csv(file_path, encoding='latin-1')\
+        print(f"Loaded data with shape: \{df.shape\}")\
+        print(f"Columns: \{df.columns.tolist()\}")\
+        \
+        # Use d18O_shell_minus_seawater\
+        if 'd18O_shell_minus_seawater' in df.columns:\
+            df['d18O'] = df['d18O_shell_minus_seawater']\
+            print(f"Using d18O_shell_minus_seawater for \{sample_name\}")\
+        else:\
+            raise ValueError(f"No d18O_shell_minus_seawater column found in \{sample_name\}")\
+        \
+        # Preserve date information\
+        if 'Decimal_Date' in df.columns:\
+            df['Time'] = df['Decimal_Date']\
+            print(f"Using Decimal_Date as Time for \{sample_name\}")\
+        else:\
+            raise ValueError(f"No date column found in \{sample_name\}")\
+    \
+    else:\
+        # Load submodern shell data from Excel - use original d18O\
+        df = pd.read_excel(file_path)\
+        print(f"Loaded data with shape: \{df.shape\}")\
+        print(f"Columns: \{df.columns.tolist()\}")\
+        \
+        # Use Corrected \uc0\u948 18O VPDB for submodern shells\
+        if 'Corrected \uc0\u948 18O VPDB' in df.columns:\
+            df['d18O'] = df['Corrected \uc0\u948 18O VPDB']\
+            print(f"Using Corrected \uc0\u948 18O VPDB for \{sample_name\}")\
+        elif 'd18O' in df.columns:\
+            print(f"Using existing d18O for \{sample_name\}")\
+        else:\
+            raise ValueError(f"No \uc0\u948 \'b9\u8312 O column found in \{sample_name\}")\
+        \
+        # Preserve date information\
+        if 'Decimal_Date' in df.columns:\
+            df['Time'] = df['Decimal_Date']\
+            print(f"Using Decimal_Date as Time for \{sample_name\}")\
+        elif 'Date' in df.columns:\
+            df['Time'] = pd.to_datetime(df['Date'])\
+            print(f"Using Date as Time for \{sample_name\}")\
+        else:\
+            raise ValueError(f"No date column found in \{sample_name\}")\
+    \
+    # Check for SST column\
+    if 'SST' not in df.columns:\
+        raise ValueError(f"Column 'SST' not found in \{sample_name\} data")\
+    \
+    # Check for duplicates in Time\
+    print(f"Checking duplicates in \{sample_name\}: \{df['Time'].duplicated().sum()\} duplicates found")\
+    \
+    # Remove rows with NaN or inf in key columns\
+    key_columns = ['SST', 'Time']\
+    if 'd18O' in df.columns:\
+        key_columns.append('d18O')\
+    original_shape = df.shape\
+    df = df.dropna(subset=key_columns)\
+    for col in key_columns:\
+        df = df[~df[col].isin([np.inf, -np.inf])]\
+    \
+    print(f"Data after cleaning (shape): \{df.shape\}")\
+    print(f"Rows removed due to NaN/inf: \{original_shape[0] - df.shape[0]\}")\
+    if df.empty:\
+        raise ValueError(f"No valid data after removing NaN/inf for \{sample_name\}")\
+    \
+    # Print sample Time values for debugging\
+    print(f"Sample \{sample_name\} Time values: \{df['Time'].head().tolist()\}")\
+    \
+    return df\
+\
+def create_time_series_plot(dfs, sample_names, output_dir):\
+    """Create time-series plot with subplots for each sample, correlation plots, and all-in-one Predicted SST plot"""\
+    os.makedirs(output_dir, exist_ok=True)\
+    num_samples = len(dfs) - 1  # Exclude OISST for individual subplots\
+    num_subplots = num_samples  # One row per sample for time-series + correlation\
+    fig = plt.figure(figsize=(20, 4 * (num_subplots + 1)))  # Adjust figure size\
+    \
+    # Create a grid with 2 columns: time-series and correlation\
+    gs = plt.GridSpec(num_subplots + 1, 2, height_ratios=[1] * num_subplots + [1], \
+                      hspace=0.4, wspace=0.1, width_ratios=[1, 0.3])\
+    \
+    # Define colors for each sample\
+    colors = []\
+    for sample_name in sample_names:\
+        if 'ATT13M02' in sample_name or '13M02' in sample_name:\
+            colors.append('#FA7F6F')  # Red\
+        elif 'ATT13M03' in sample_name or '13M03' in sample_name:\
+            colors.append('#82B0D2')  # Blue\
+        elif 'ATT13011' in sample_name:\
+            colors.append('#8ECFC9')  # Green\
+        elif 'ATT13116' in sample_name:\
+            colors.append('#FFBE7A')  # Orange\
+        elif 'ATT13136' in sample_name:\
+            colors.append('#BEB8DC')  # Brown\
+        elif 'OISST' in sample_name:\
+            colors.append('black')\
+        else:\
+            colors.append('#9467bd')  # Purple\
+    \
+    # Debug lengths\
+    print(f"Number of samples (excluding OISST): \{num_samples\}")\
+    print(f"Number of dataframes: \{len(dfs)\}")\
+    print(f"Number of sample names: \{len(sample_names)\}")\
+    print(f"Number of colors: \{len(colors)\}")\
+    \
+    # Equation: SST = -2.720 \'d7 \uc0\u948 18O + 25.65\
+    slope = -2.720\
+    intercept = 25.65\
+    \
+    # Plot individual subplots and correlation plots\
+    for i in range(num_samples):\
+        df = dfs[i]\
+        sample_name = sample_names[i]\
+        color = colors[i]\
+        short_name = sample_name.split()[-1] if ' ' in sample_name else sample_name\
+        \
+        # Time-series subplot (left column)\
+        ax_time = fig.add_subplot(gs[i, 0])\
+        plot_data = df[['Time', 'SST']].copy()\
+        plot_data['Observed SST'] = plot_data['SST']\
+        plot_data['d18O'] = df['d18O']\
+        plot_data['Predicted SST'] = slope * plot_data['d18O'] + intercept\
+        \
+        # Create twin y-axis for \uc0\u948 \'b9\u8312 O (\'89) and SST (\'b0C)\
+        ax_time_sst = ax_time.twinx()\
+        \
+        # Plot \uc0\u948 \'b9\u8312 O on left axis\
+        ax_time.plot(plot_data['Time'], plot_data['d18O'], color=color, \
+                    linestyle='-', linewidth=1.5, label='\uc0\u948 \'b9\u8312 O')\
+        \
+        # Plot SSTs on right axis\
+        ax_time_sst.plot(plot_data['Time'], plot_data['Predicted SST'], color=color, \
+                        linestyle='--', linewidth=1.5, label='Predicted SST')\
+        ax_time_sst.plot(plot_data['Time'], plot_data['Observed SST'], color='black', \
+                        linestyle='-', linewidth=1.5, label='Observed SST')\
+        \
+        # Determine appropriate label based on sample\
+        if '13M02' in sample_name or '13M03' in sample_name:\
+            y_label = f'\{short_name\} \uc0\u948 \'b9\u8312 O_shell-sw (\'89)'\
+        else:\
+            y_label = f'\{short_name\} \uc0\u948 \'b9\u8312 O VPDB (\'89)'\
+        \
+        ax_time.set_ylabel(y_label, fontsize=12, color=color, fontweight='bold')\
+        ax_time_sst.set_ylabel('SST (\'b0C)', fontsize=12, fontweight='bold')\
+        ax_time.set_xlabel('Year', fontsize=12, fontweight='bold')\
+        ax_time.invert_yaxis()  # Reverse y-axis for \uc0\u948 \'b9\u8312 O\
+        ax_time.tick_params(axis='y', colors=color, labelsize=10)\
+        ax_time_sst.tick_params(axis='y', labelsize=10)\
+        \
+        # Add legend only for first subplot\
+        if i == 0:\
+            lines1, labels1 = ax_time.get_legend_handles_labels()\
+            lines2, labels2 = ax_time_sst.get_legend_handles_labels()\
+            ax_time_sst.legend(lines1 + lines2, labels1 + labels2, \
+                              loc='lower right', fontsize=9, frameon=True, \
+                              edgecolor='black')\
+        \
+        # Remove grids\
+        ax_time.grid(False)\
+        ax_time_sst.grid(False)\
+        \
+        # Format x-axis as integer years\
+        if pd.api.types.is_datetime64_any_dtype(plot_data['Time']):\
+            ax_time.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))\
+            ax_time.xaxis.set_major_locator(mdates.YearLocator())\
+        else:\
+            ax_time.xaxis.set_major_locator(plt.MaxNLocator(integer=True))\
+        \
+        # Correlation subplot (right column)\
+        ax_corr = fig.add_subplot(gs[i, 1])\
+        ax_corr.scatter(plot_data['Observed SST'], plot_data['Predicted SST'], \
+                       color=color, s=40, alpha=0.7, edgecolors='black', linewidth=0.5)\
+        \
+        # Calculate correlation coefficient and regression line\
+        corr, _ = pearsonr(plot_data['Observed SST'], plot_data['Predicted SST'])\
+        corr_slope, corr_intercept, _, _, _ = linregress(plot_data['Observed SST'], \
+                                                          plot_data['Predicted SST'])\
+        ax_corr.text(0.05, 0.95, f'r = \{corr:.3f\}', transform=ax_corr.transAxes, \
+                    fontsize=10, verticalalignment='top', fontweight='bold')\
+        \
+        # Plot regression line\
+        x_vals = np.array([plot_data['Observed SST'].min(), plot_data['Observed SST'].max()])\
+        y_vals = corr_slope * x_vals + corr_intercept\
+        ax_corr.plot(x_vals, y_vals, 'k-', alpha=0.5, linewidth=1.5)\
+        \
+        ax_corr.set_ylabel('Predicted SST (\'b0C)', fontsize=12, fontweight='bold')\
+        ax_corr.set_xlabel('Observed SST (\'b0C)', fontsize=12, fontweight='bold')\
+        ax_corr.grid(False)\
+        ax_corr.set_aspect('equal', adjustable='box')\
+        \
+        # Set same limits for x and y\
+        min_val = min(plot_data['Observed SST'].min(), plot_data['Predicted SST'].min())\
+        max_val = max(plot_data['Observed SST'].max(), plot_data['Predicted SST'].max())\
+        ax_corr.set_xlim(min_val - 0.5, max_val + 0.5)\
+        ax_corr.set_ylim(min_val - 0.5, max_val + 0.5)\
+        \
+        # Remove top and right spines\
+        ax_corr.spines['top'].set_visible(False)\
+        ax_corr.spines['right'].set_visible(False)\
+    \
+    # All-in-one Predicted SST subplot with OISST background (bottom, spanning both columns)\
+    ax_all = fig.add_subplot(gs[num_subplots, :])\
+    ax_all.set_ylabel('SST (\'b0C)', fontsize=12, fontweight='bold')\
+    ax_all.set_xlabel('Year', fontsize=12, fontweight='bold')\
+    ax_all.grid(False)\
+    \
+    # Plot OISST Observed SST\
+    oisst_df = dfs[sample_names.index('OISST')]\
+    ax_all.plot(oisst_df['Time'], oisst_df['SST'], color='black', \
+               linestyle='-', linewidth=1.5, label='OISST Observed SST')\
+    \
+    # Prepare combined Predicted SST data for all samples (excluding OISST)\
+    combined_data = []\
+    legend_entries = []\
+    for i, (df, sample_name) in enumerate(zip(dfs, sample_names)):\
+        if 'OISST' in sample_name:\
+            continue\
+        short_name = sample_name.split()[-1] if ' ' in sample_name else sample_name\
+        temp_df = df[['Time', 'd18O']].copy()\
+        temp_df['Predicted SST'] = slope * temp_df['d18O'] + intercept\
+        temp_df['Sample'] = short_name\
+        combined_data.append(temp_df[['Time', 'Predicted SST', 'Sample']])\
+        legend_entries.append((short_name, colors[i]))\
+    \
+    combined_df = pd.concat(combined_data, ignore_index=True)\
+    \
+    # Filter data to 1980\'962015\
+    if pd.api.types.is_datetime64_any_dtype(combined_df['Time']):\
+        combined_df = combined_df[(combined_df['Time'].dt.year >= 1980) & \
+                                  (combined_df['Time'].dt.year <= 2015)]\
+        oisst_filtered = oisst_df[(oisst_df['Time'].dt.year >= 1980) & \
+                                   (oisst_df['Time'].dt.year <= 2015)]\
+    else:\
+        combined_df = combined_df[(combined_df['Time'] >= 1980) & \
+                                  (combined_df['Time'] <= 2015)]\
+        oisst_filtered = oisst_df[(oisst_df['Time'] >= 1980) & \
+                                   (oisst_df['Time'] <= 2015)]\
+    \
+    # Plot combined Predicted SST with dashed lines\
+    for short_name, color in legend_entries:\
+        sample_data = combined_df[combined_df['Sample'] == short_name]\
+        ax_all.plot(sample_data['Time'], sample_data['Predicted SST'], \
+                   color=color, linestyle='--', linewidth=1.5, \
+                   label=f'\{short_name\} Predicted SST')\
+    \
+    # Format x-axis as integer years\
+    if pd.api.types.is_datetime64_any_dtype(combined_df['Time']):\
+        ax_all.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))\
+        ax_all.xaxis.set_major_locator(mdates.YearLocator())\
+    else:\
+        ax_all.xaxis.set_major_locator(plt.MaxNLocator(integer=True))\
+    \
+    # Set x-axis limits to 1980\'962015\
+    ax_all.set_xlim(1980, 2015)\
+    \
+    # Move legend to avoid overlap\
+    ax_all.legend(loc='upper left', bbox_to_anchor=(1.02, 1), fontsize=9, \
+                 frameon=True, edgecolor='black')\
+    \
+    # Remove top and right spines\
+    ax_all.spines['top'].set_visible(False)\
+    ax_all.spines['right'].set_visible(False)\
+    \
+    # Adjust layout\
+    plt.tight_layout()\
+    \
+    # Save plot\
+    fig_path = os.path.join(output_dir, 'submodern_d18O_SST_vs_time.png')\
+    plt.savefig(fig_path, dpi=300, bbox_inches='tight')\
+    plt.close()\
+    print(f"Saved time-series and correlation plot: \{fig_path\}")\
+\
+def main():\
+    """Load data and create time-series plot with correlation for verification"""\
+    base_dir_modern = "/Volumes/tao.ye/18O/Interpolation/ATT13M02&03/Linear/d18Oshell-seawater"\
+    base_dir_submodern = "/Volumes/tao.ye/18O/Wiggle match"\
+    output_base_dir = "/Volumes/tao.ye/18O/Wiggle match"\
+    output_dir = os.path.join(output_base_dir, \
+                             f"Submodern_Verification_Mixed_\{datetime.now().strftime('%Y-%m-%d')\}")\
+    \
+    sample_files = [\
+        os.path.join(base_dir_modern, '13M02_d18O_shell_minus_seawater.csv'),\
+        os.path.join(base_dir_modern, '13M03_d18O_shell_minus_seawater.csv'),\
+        os.path.join(base_dir_submodern, 'ATT13011 0.4 mm/Tuned/ATT3011_Interpolated_Standardized.xlsx'),\
+        os.path.join(base_dir_submodern, 'ATT13116 0.2 mm/Tuned/ATT13116_Interpolated_Standardized.xlsx'),\
+        os.path.join(base_dir_submodern, 'ATT13136 0.2 mm/Tuned/ATT13136_Interpolated_Standardized.xlsx'),\
+        '/Volumes/tao.ye/Climate index/SST/Aitutaki_SST_OISST.xlsx'\
+    ]\
+    sample_names = ['ATT13M02', 'ATT13M03', \
+                    'Tridacna maxima ATT13011', 'Tridacna maxima ATT13116', \
+                    'Tridacna maxima ATT13136',\
+                    'OISST']\
+    \
+    dfs = []\
+    for file_path, name in zip(sample_files, sample_names):\
+        df = load_data_file(file_path, name)\
+        dfs.append(df)\
+    \
+    create_time_series_plot(dfs, sample_names, output_dir)\
+    \
+    print("\\nTime-series and correlation plot generation complete.")\
+    print(f"Equation used: SST = -2.720 \'d7 \uc0\u948 18O + 25.65")\
+    print(f"13M02/03: using d18O_shell_minus_seawater")\
+    print(f"Submodern shells (ATT13011, ATT13116, ATT13136): using original \uc0\u948 18O VPDB")\
+\
+if __name__ == "__main__":\
+    main()}

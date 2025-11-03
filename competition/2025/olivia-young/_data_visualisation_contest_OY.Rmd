@@ -1,0 +1,65 @@
+---
+title: "Data Visualisation Olivia Young"
+output: html_notebook
+---
+
+This code is for the graph I am submitting to the data visualisation competition by the ANU Statistical Support Network
+Olivia Young 
+03/10/2025
+
+## Loading Data
+
+```{r}
+library(ggplot2)
+library(dplyr)
+#loading data
+clean_h2 <- read.csv("major_experiment_h2_april2025.csv", stringsAsFactors = T, header = T)
+endo_h2 <- clean_h2[clean_h2$inoculation == "endogenous", ]
+mix_h2 <- clean_h2[clean_h2$inoculation == "mix", ]
+
+
+#colour palette
+endo_col <- "#376184"
+mix_col <- "#b470dd"
+colours_for_2 <- c(endo_col, mix_col)
+
+get_slope_value <- function(df) {
+  fit <- lm(F1_mass_mg ~ F0_mass_mg, data = df)
+  coef_summary <- summary(fit)$coefficients
+  slope <- coef_summary["F0_mass_mg", "Estimate"]
+  pval  <- coef_summary["F0_mass_mg", "Pr(>|t|)"]
+  r2    <- summary(fit)$r.squared 
+
+  sig <- ifelse(pval < 0.001, "***",
+         ifelse(pval < 0.01,  "**",
+         ifelse(pval < 0.05,  "*", "ns")))
+
+  paste0("Slope = ", round(slope, 2), "\nr² = ", round(r2, 2), "\n", sig)
+}
+
+endo_text_x <- 875
+endo_text_y <- 380
+mix_text_x <- 390
+mix_text_y <- 990
+```
+
+## Figure
+
+```{r}
+#using ggplot to make the plot
+mb_h2_plot <- ggplot(clean_h2, aes(x = F0_mass_mg, y = F1_mass_mg))+
+  scale_color_manual(values = colours_for_2, labels = c("Endogenous", "Perturbed Endogenous")) +
+    geom_point(aes(colour = inoculation)) +
+    geom_smooth(method = "lm", se = TRUE, aes(colour = inoculation)) +
+    guides(colour = guide_legend(override.aes = list(linetype = 0))) +
+    labs(x = "Generation 1 Black Soldier Fly Larvae Total Mass (mg)", y = "Generation 2 Black Soldier Fly Larvae Total Mass (mg)", colour = "Microbiome Inoculation") +
+    theme_light() +
+    coord_cartesian(xlim = c(300, 1000), ylim = c(0, 1200), expand = FALSE) +
+    geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "red")+
+  annotate("text", label = get_slope_value(endo_h2), x = endo_text_x, y = endo_text_y, colour = endo_col)+
+  annotate("text", label = get_slope_value(mix_h2), x = mix_text_x, y = mix_text_y, colour = mix_col)+
+  geom_rug(aes(colour = inoculation), length = unit(0.02, 'npc'))
+mb_h2_plot
+ggsave("OY_datavis_20251003.png", mb_h2_plot, height = 5, width = 7)
+```
+
