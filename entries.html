@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – SSN Data Vis</title>
+<title>Entries – SSN Data Vis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -72,7 +74,65 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing-1 .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing-1'] = new List('listing-listing-1', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -103,11 +163,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./entries.html"> 
+    <a class="nav-link active" href="./entries.html" aria-current="page"> 
 <span class="menu-text">Entries</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -125,13 +185,13 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="./images/ANU_Primary_Horizontal_GoldBlack.png" class="img-fluid"></p>
 </div></div>
         
-    </div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(11)</span></div><div class="category" data-category="MjAyNA==">2024 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="MjAyNQ==">2025 <span class="quarto-category-count">(8)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Entries</h1>
 </div>
 
 
@@ -148,12 +208,334 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This competition is organised by Professor <a href="https://researchportalplus.anu.edu.au/en/persons/alice-richardson">Alice Richardson</a>, the lead of Statistical Support Network at the Australian National University.</p>
-<p>If there are any issues with this website, please send an email to emi.tanaka@anu.edu.au.</p>
 
 
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing-1">
+<div class="list grid quarto-listing-cols-2">
+<div class="g-col-1" data-index="0" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762130924481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="276">
+<a href="./competition/2025/zac-doan/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/zac-doan/Epicurve and rainfall.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entry by Zac Doan
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+Melioidosis, a lethal disease caused by the soil-based bacterium, <em>Burkholderia pseu-domallei</em>, is endemic in northeastern Queensland. Case reporting typically increases…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Zac Doan
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762129704667" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="270">
+<a href="./competition/2025/claudia-avila/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/claudia-avila/demographic transition LAC.gif" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entry by Claudia Avila
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+This animated scatterplot documents the demographic transition of Latin America and the Caribbean from 1950 to 2025, using data from the UN World Population Prospects 2024.…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Claudia Avila
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762130804081" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="247">
+<a href="./competition/2025/tao-ye/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/tao-ye/submodern_d18O_SST_vs_time.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entry by Tao Ye
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+The attached graphic validates an Empirical Calibration Equation (SST = -2.720 × δ¹⁸O_shell-sw + 25.65) using Tridacna maxima shells from Aitutaki Island, analyzed for my…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Tao Ye
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762130475450" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="297">
+<a href="./competition/2025/olivia-young/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/olivia-young/OY_datavis_20251003.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entries by Olivia Young
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+Microbiome-derived heritability for a particular microbiome function can be calculated through the covariance between donor and recipient microbiomes. Here, microbiome…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Olivia Young
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762129045036" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="294">
+<a href="./competition/2025/ashley-barnes/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/ashley-barnes/ashley_barnes_submission.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Regional ocean model configuration with accurate representation of the Tasman Sea internal wave beam
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+This is a figure from a submitted paper showing my high resolution regional ocean model used for studying internal waves in the Tasman Sea. Now, the other figures in the…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Ashley Barnes
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="5" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762130038445" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="300">
+<a href="./competition/2025/geun-yun/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/geun-yun/SHAP_ungrouped_and_grouped.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entry by Geun Yun
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+Machine learning models are increasingly applied in clinical settings, yet their complexity often leads to the propagation of bias and reduces the interpretability of the…<strong></strong><strong></strong><strong></strong><strong></strong><strong></strong>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Geun Yun
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="6" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762130269525" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="282">
+<a href="./competition/2025/iko-ojo-simon/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/iko-ojo-simon/Radar Chart.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Algorithm Debt in Machine and Deep Learning Systems
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+The graphic (Figure&nbsp;1), is a radar chart, that visualises the results of a study conducted on the perceived causes of Algorithm Debt in Machine and Deep Learning systems.…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Emmanuel Iko-Ojo Simon
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="7" data-categories="MjAyNQ==" data-listing-date-sort="1762088400000" data-listing-file-modified-sort="1762130706381" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="256">
+<a href="./competition/2025/radhwan-al-zidan/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2025/radhwan-al-zidan/RadhwanAlZidan_Figure.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Toxigenic Bacillus species induce a distinct cytokine release signature in macrophages, revealing inflammasome activation
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNQ=='); return false;">2025</div>
+
+</div>
+<div class="card-text listing-description delink">
+This heatmap visualises the cytokine landscape induced by 14 <em>Bacillus</em> species, uncovering a distinct inflammasome activation signature associated with bacterial toxicity.…<em></em>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Radhwan Al Zidan
+</div>
+<div class="listing-date">
+Nov 3, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="8" data-categories="MjAyNA==" data-listing-date-sort="1732453200000" data-listing-file-modified-sort="1740209608000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="323">
+<a href="./competition/2024/alice-kennard/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2024/alice-kennard/figure.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entry by Alice Kennard
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNA=='); return false;">2024</div>
+
+</div>
+<div class="card-text listing-description delink">
+This graphic describes a prospective cohort study examining the prevalence of Fried frailty phenotype, transitions in frailty status over longitudinal assessment and the…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Dr Alice L Kennard, Associate Professor Alice M Richardson, Dr Suzanne E Rainsford, Kelly L Hamilton, Professor Nicholas J Glasgow, Professor Kate L Pumpa, Angela M Douglas, Associated Professor Girish S Talaulikar
+</div>
+<div class="listing-date">
+Nov 25, 2024
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="9" data-categories="MjAyNA==" data-listing-date-sort="1732453200000" data-listing-file-modified-sort="1740209608000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="303">
+<a href="./competition/2024/bonnie-martin-stuart/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2024/bonnie-martin-stuart/figure.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entry by Bonnie Martin-Stuart
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNA=='); return false;">2024</div>
+
+</div>
+<div class="card-text listing-description delink">
+For part of my Honours thesis, I undertook topsoil sampling surveys that utilised a systematic sampling protocol. Systematic sampling uses a zigzag pattern of randomly…<span class="citation" data-cites="hazelton2016"></span><span class="citation" data-cites="EAL LLS"></span><span class="citation" data-cites="brown1999"></span><span class="citation" data-cites="hazelton2016"></span>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Nov 25, 2024
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="10" data-categories="MjAyNA==" data-listing-date-sort="1732453200000" data-listing-file-modified-sort="1740206400000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="368">
+<a href="./competition/2024/alex-harrison/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./competition/2024/alex-harrison/figure.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Entry by Alex Harrison
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('MjAyNA=='); return false;">2024</div>
+
+</div>
+<div class="card-text listing-description delink">
+The graph shows the predicted soil CO2 efflux (or soil respiration rate) against the moisture content of the soil. It compares two treatments: brush packs and a control (no…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Nov 25, 2024
+</div>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

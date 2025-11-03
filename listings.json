@@ -2,9 +2,33 @@
   {
     "listing": "/index.html",
     "items": [
+      "/competition/2025/iko-ojo-simon/index.html",
+      "/competition/2025/olivia-young/index.html",
+      "/competition/2025/claudia-avila/index.html",
+      "/competition/2025/geun-yun/index.html",
+      "/competition/2025/tao-ye/index.html",
+      "/competition/2025/zac-doan/index.html",
+      "/competition/2025/ashley-barnes/index.html",
+      "/competition/2025/radhwan-al-zidan/index.html",
       "/competition/2024/alex-harrison/index.html",
       "/competition/2024/alice-kennard/index.html",
       "/competition/2024/bonnie-martin-stuart/index.html"
+    ]
+  },
+  {
+    "listing": "/entries.html",
+    "items": [
+      "/competition/2025/zac-doan/index.html",
+      "/competition/2025/claudia-avila/index.html",
+      "/competition/2025/tao-ye/index.html",
+      "/competition/2025/olivia-young/index.html",
+      "/competition/2025/ashley-barnes/index.html",
+      "/competition/2025/geun-yun/index.html",
+      "/competition/2025/iko-ojo-simon/index.html",
+      "/competition/2025/radhwan-al-zidan/index.html",
+      "/competition/2024/alice-kennard/index.html",
+      "/competition/2024/bonnie-martin-stuart/index.html",
+      "/competition/2024/alex-harrison/index.html"
     ]
   }
 ]
